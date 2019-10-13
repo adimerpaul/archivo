@@ -201,8 +201,8 @@
                                     <td>$row->carnet</td>
                                     <td>$row->fecha</td>
                                     <td>
-                                        <button type='button' class='btn btn-success' data-toggle='modal' data-target='#modal-success'>
-                                          Registro
+                                        <button type='button' class='btn btn-success' data-toggle='modal' data-target='#modal-success' data-id='$row->idpersona'>
+                                          <i class='fa fa-eye'></i> Registro
                                         </button>
                                     </td>
                                 </tr>";
@@ -220,21 +220,62 @@
             <!-- /.card -->
 
         </section>
+        <style>
+            .modal-lg{
+                min-width: 98%;
+            }
+        </style>
         <div class="modal fade" id="modal-success">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content bg-success">
                     <div class="modal-header">
-                        <h4 class="modal-title">Success Modal</h4>
+                        <h4 class="modal-title">REGISTROS</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
-                        <p>One fine body&hellip;</p>
+                        <form role="form" method="post" action="<?=base_url()?>Main/subir" enctype="multipart/form-data">
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <label for="archivo" class="col-sm-1">Selecionar archivo</label>
+                                    <div class="col-sm-5">
+                                        <div class="input-group">
+                                            <div class="custom-file">
+                                                <input type="text" name="tabla" value="REGISTROS" hidden>
+                                                <input type="text" name="idpersona" id="codigor" hidden>
+                                                <input type="file" required id="archivo" name="archivo">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <label for="nombrer" class="col-sm-2">EL nombre del archivo sera</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" required class="form-control" id="nombrer" name="nombre" placeholder="Nombre del archivo">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal"> <i class="fa fa-power-off"></i> Close</button>
+                                <button type="submit" class="btn btn-primary"> <i class="fa fa-check"></i> Subir</button>
+                            </div>
+                        </form>
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th style="width: 10px">#</th>
+                                <th>Nombre</th>
+                                <th>Estado</th>
+                                <th>Modificados</th>
+                                <th>Cancelados</th>
+                                <th>Fecha</th>
+                                <th style="width: 40px">Ver</th>
+                            </tr>
+                            </thead>
+                            <tbody id="contenidor">
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-outline-light">Save changes</button>
-                    </div>
+
                 </div>
                 <!-- /.modal-content -->
             </div>
@@ -260,6 +301,124 @@
 </div>
 <!-- ./wrapper -->
 
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Agregar modificaciones</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form" method="post" action="<?=base_url()?>Main/modificar" enctype="multipart/form-data">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label for="archivo" class="col-sm-3">Selecionar archivo</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="text" name="idpersona" id="idpersonam" hidden>
+                                        <input type="text" name="idregistro" id="idregistrom" hidden>
+                                        <input type="file" required id="archivo" name="archivo">
+                                    </div>
+                                </div>
+                            </div>
+<!--                            <label for="nombrer" class="col-sm-3">El nombre archivo</label>-->
+<!--                            <div class="col-sm-9">-->
+<!--                                <input type="text" required class="form-control" id="nombrem" name="nombre" placeholder="Nombre del archivo">-->
+<!--                            </div>-->
+
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"> <i class="fa fa-power-off"></i> Close</button>
+                        <button type="submit" class="btn btn-primary"> <i class="fa fa-check"></i> Subir</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Agregar cancelaciones</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form" method="post" action="<?=base_url()?>Main/cancelar" enctype="multipart/form-data">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label for="archivo" class="col-sm-3">Selecionar archivo</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="text" name="idpersona" id="idpersonac" hidden>
+                                        <input type="text" name="idregistro" id="idregistroc" hidden>
+                                        <input type="file" required id="archivo" name="archivo">
+                                    </div>
+                                </div>
+                            </div>
+                            <!--                            <label for="nombrer" class="col-sm-3">El nombre archivo</label>-->
+                            <!--                            <div class="col-sm-9">-->
+                            <!--                                <input type="text" required class="form-control" id="nombrem" name="nombre" placeholder="Nombre del archivo">-->
+                            <!--                            </div>-->
+
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"> <i class="fa fa-power-off"></i> Close</button>
+                        <button type="submit" class="btn btn-primary"> <i class="fa fa-check"></i> Subir</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="vermodificaciones" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Ver modificaciones</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form" method="post" action="<?=base_url()?>Main/cancelar" enctype="multipart/form-data">
+                    <div class="card-body">
+                        <div class="form-group row">
+                          <table class="table" >
+                              <thead class="thead-dark">
+                              <tr>Archivo</tr>
+                              <tr>Ver</tr>
+                              </thead>
+                          </table>
+                            <!--                            <label for="nombrer" class="col-sm-3">El nombre archivo</label>-->
+                            <!--                            <div class="col-sm-9">-->
+                            <!--                                <input type="text" required class="form-control" id="nombrem" name="nombre" placeholder="Nombre del archivo">-->
+                            <!--                            </div>-->
+
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"> <i class="fa fa-power-off"></i> Close</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- jQuery -->
 <script src="<?=base_url()?>plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
@@ -278,3 +437,72 @@
 </script>
 </body>
 </html>
+<script !src="">
+    /*$('#modal-success').on('show.bs.modal',function (event) {
+        var button=(event.relatedTarget);
+        var id=button.data('id');
+        console.log(id);
+    });*/
+    var idpersona;
+    var nombre;
+    var carnet;
+        $('#modal-success').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var id = button.data('id');
+        idpersona=id;
+        $('#codigor').val(id);
+            $.ajax({
+                url:'Main/persona/'+id,
+                success:function (e) {
+                    // console.log(e);
+                    var datos=JSON.parse(e)[0];
+                    nombre=datos.nombre;
+                    carnet=datos.carnet;
+                    $.ajax({
+                        url:'Main/consulta/registros/'+id,
+                        success:function (e) {
+                            // console.log(e);
+                            var datos=JSON.parse(e);
+                            $('#nombrer').val(nombre+'-'+carnet+'-'+parseInt(datos.length+1));
+                            var html='';
+                            var con=0;
+                            $('#contenidor').html('');
+                            datos.forEach(function (e) {
+                                con++;
+                                html+='<tr><td>'+con+'</td><td>'+e.nombre+'</td><td>'+e.estado+'</td><td>'+
+                                    '<button type="button" class="btn btn-warning" data-id="'+e.idregistro+'" data-toggle="modal" data-target="#exampleModalCenter">\n' +
+                                    ' <i class="fa fa-plus-circle"></i>' +
+                                    '</button>'+
+                                    // '<button type="button" class="btn btn-info" data-id="'+e.idregistro+'" data-toggle="modal" data-target="#vermodificaciones">\n' +
+                                    // ' <i class="fa fa-eye"></i>' +
+                                    // '</button>'+
+                                    '</td>' +
+                                    '<td>'+
+                                    '<button type="button" class="btn btn-danger" data-id="'+e.idregistro+'" data-toggle="modal" data-target="#exampleModalCenter2">\n' +
+                                    ' <i class="fa fa-plus-circle"></i>' +
+                                    '</button>'+
+                                    '</td><td>'+e.fecha+'</td><td><a class="btn btn-primary" href="'+window.location+'/../archivos/REGISTROS/'+e.nombre.replace(new RegExp(' ', 'g'),"_")+'.pdf" target="_blank"><i class="fa fa-file-pdf"></i></a></td></tr>';
+                            });
+                            $('#contenidor').html(html);
+                        }
+                    });
+                }
+            });
+    })
+    $('#exampleModalCenter').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var id = button.data('id');
+        var idregistro=id;
+        $('#idpersonam').val(idpersona);
+        $('#idregistrom').val(idregistro);
+
+    });
+    $('#exampleModalCenter2').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var id = button.data('id');
+        var idregistro=id;
+        $('#idpersonac').val(idpersona);
+        $('#idregistroc').val(idregistro);
+
+    });
+</script>

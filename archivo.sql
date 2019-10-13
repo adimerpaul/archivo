@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-10-2019 a las 04:46:38
+-- Tiempo de generación: 13-10-2019 a las 14:34:15
 -- Versión del servidor: 10.1.40-MariaDB
 -- Versión de PHP: 7.3.5
 
@@ -30,23 +30,41 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `cancelaciones` (
   `idcancelacion` int(11) NOT NULL,
-  `ispersona` int(11) NOT NULL,
+  `idpersona` int(11) NOT NULL,
   `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `nombre` varchar(100) NOT NULL
+  `nombre` varchar(100) NOT NULL,
+  `idregistro` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `cancelaciones`
+--
+
+INSERT INTO `cancelaciones` (`idcancelacion`, `idpersona`, `fecha`, `nombre`, `idregistro`) VALUES
+(1, 3, '2019-10-13 12:28:42', 'ANA GABRIEL LOPEZ CALLE_123456789_1', 5);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `modificaiones`
+-- Estructura de tabla para la tabla `modificaciones`
 --
 
-CREATE TABLE `modificaiones` (
+CREATE TABLE `modificaciones` (
   `idmodificacion` int(11) NOT NULL,
   `idpersona` int(11) NOT NULL,
   `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `nombre` varchar(100) NOT NULL
+  `nombre` varchar(100) NOT NULL,
+  `idregistro` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `modificaciones`
+--
+
+INSERT INTO `modificaciones` (`idmodificacion`, `idpersona`, `fecha`, `nombre`, `idregistro`) VALUES
+(1, 3, '2019-10-13 12:18:42', 'ANA GABRIEL LOPEZ CALLE_123456789_1', 5),
+(2, 3, '2019-10-13 12:20:16', 'ANA GABRIEL LOPEZ CALLE_123456789_2', 5),
+(3, 3, '2019-10-13 12:29:05', 'ANA GABRIEL LOPEZ CALLE_123456789_3', 5);
 
 -- --------------------------------------------------------
 
@@ -66,7 +84,7 @@ CREATE TABLE `persona` (
 --
 
 INSERT INTO `persona` (`idpersona`, `nombre`, `carnet`, `fecha`) VALUES
-(1, 'nombre', '7336199-OR', '2019-10-09 02:40:12');
+(3, 'ANA GABRIEL LOPEZ CALLE', '123456789', '2019-10-13 02:09:48');
 
 -- --------------------------------------------------------
 
@@ -78,8 +96,18 @@ CREATE TABLE `registros` (
   `idregistro` int(11) NOT NULL,
   `idpersona` int(11) NOT NULL,
   `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `nombre` varchar(100) NOT NULL
+  `nombre` varchar(100) NOT NULL,
+  `estado` varchar(20) NOT NULL DEFAULT 'ACTIVO'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `registros`
+--
+
+INSERT INTO `registros` (`idregistro`, `idpersona`, `fecha`, `nombre`, `estado`) VALUES
+(5, 3, '2019-10-13 03:24:43', 'ANA GABRIEL LOPEZ CALLE-123456789-1', 'MODIFICADO'),
+(6, 3, '2019-10-13 03:31:57', 'ANA GABRIEL LOPEZ CALLE-123456789-2', 'ACTIVO'),
+(7, 3, '2019-10-13 11:40:33', 'ANA GABRIEL LOPEZ CALLE-123456789-3', 'ACTIVO');
 
 --
 -- Índices para tablas volcadas
@@ -92,9 +120,9 @@ ALTER TABLE `cancelaciones`
   ADD PRIMARY KEY (`idcancelacion`);
 
 --
--- Indices de la tabla `modificaiones`
+-- Indices de la tabla `modificaciones`
 --
-ALTER TABLE `modificaiones`
+ALTER TABLE `modificaciones`
   ADD PRIMARY KEY (`idmodificacion`);
 
 --
@@ -117,25 +145,25 @@ ALTER TABLE `registros`
 -- AUTO_INCREMENT de la tabla `cancelaciones`
 --
 ALTER TABLE `cancelaciones`
-  MODIFY `idcancelacion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idcancelacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT de la tabla `modificaiones`
+-- AUTO_INCREMENT de la tabla `modificaciones`
 --
-ALTER TABLE `modificaiones`
-  MODIFY `idmodificacion` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `modificaciones`
+  MODIFY `idmodificacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `idpersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idpersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `registros`
 --
 ALTER TABLE `registros`
-  MODIFY `idregistro` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idregistro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
