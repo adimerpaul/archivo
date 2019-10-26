@@ -8,8 +8,25 @@ function index(){
     }
     $this->load->view('main');
 }
-    function archivo($idarchivo){
-
+    function archivo($idregistro){
+    $query=$this->db->query("SELECT * FROM modificaciones WHERE idregistro='$idregistro' ORDER BY idmodificacion DESC");
+    if ($query->num_rows()>0){
+        $query=$this->db->query("SELECT * FROM cancelaciones WHERE idregistro='$idregistro' ORDER BY idcancelacion DESC");
+        if ($query->num_rows()>0){
+            $nombre=$query->row()->nombre;
+            $nombre=str_replace(' ','_',$nombre);
+            header("Location: ".base_url()."archivos/CANCELACIONES/".$nombre.".pdf");
+        }else{
+            $nombre=$query->row()->nombre;
+            $nombre=str_replace(' ','_',$nombre);
+            header("Location: ".base_url()."archivos/MODIFICACIONES/".$nombre.".pdf");
+        }
+    }else{
+        $query=$this->db->query("SELECT * FROM registros WHERE idregistro='$idregistro' ORDER BY idregistro DESC");
+        $nombre=$query->row()->nombre;
+        $nombre=str_replace(' ','_',$nombre);
+        header("Location: ".base_url()."archivos/REGISTROS/".$nombre.".pdf");
+    }
     }
 function insert(){
     $nombre=strtoupper( $_POST['nombre']);
