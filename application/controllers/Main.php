@@ -8,6 +8,9 @@ function index(){
     }
     $this->load->view('main');
 }
+    function archivo($idarchivo){
+
+    }
 function insert(){
     $nombre=strtoupper( $_POST['nombre']);
     $ci=$_POST['ci'];

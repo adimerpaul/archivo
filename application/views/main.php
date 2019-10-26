@@ -481,7 +481,12 @@
                                     '<button type="button" class="btn btn-danger" data-id="'+e.idregistro+'" data-toggle="modal" data-target="#exampleModalCenter2">\n' +
                                     ' <i class="fa fa-plus-circle"></i>' +
                                     '</button>'+
-                                    '</td><td>'+e.fecha+'</td><td><a class="btn btn-primary" href="'+window.location+'/../archivos/REGISTROS/'+e.nombre.replace(new RegExp(' ', 'g'),"_")+'.pdf" target="_blank"><i class="fa fa-file-pdf"></i></a></td></tr>';
+                                    '</td><td>'+e.fecha+'</td>' +
+                                    '<td>' +
+                                        // '<a class="btn btn-primary" href="'+window.location+'/../Main/archivo/'+e.nombre.replace(new RegExp(' ', 'g'),"_")+'.pdf" target="_blank"><i class="fa fa-file-pdf"></i></a>' +
+                                    '<a class="btn btn-primary" href="'+window.location+'/../Main/archivo/'+e.idregistro+'" target="_blank"><i class="fa fa-file-pdf"></i></a>' +
+                                    '</td>' +
+                                    '</tr>';
                             });
                             $('#contenidor').html(html);
                         }
