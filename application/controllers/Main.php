@@ -17,6 +17,7 @@ function index(){
             $nombre=str_replace(' ','_',$nombre);
             header("Location: ".base_url()."archivos/CANCELACIONES/".$nombre.".pdf");
         }else{
+            $query=$this->db->query("SELECT * FROM cancelaciones WHERE idregistro='$idregistro' ORDER BY idcancelacion DESC");
             $nombre=$query->row()->nombre;
             $nombre=str_replace(' ','_',$nombre);
             header("Location: ".base_url()."archivos/MODIFICACIONES/".$nombre.".pdf");
